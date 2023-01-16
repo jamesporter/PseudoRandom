@@ -3,11 +3,11 @@ import GameplayKit
 public class PseudoRandom {
   private let source: GKMersenneTwisterRandomSource
   
-  init(seed: UInt64 = 0) {
+  public init(seed: UInt64 = 0) {
     source = GKMersenneTwisterRandomSource(seed: seed)
   }
   
-  var seed: UInt64 {
+  public var seed: UInt64 {
     get {
       source.seed
     }
@@ -16,27 +16,27 @@ public class PseudoRandom {
     }
   }
   
-  func random() -> Double {
+  public func random() -> Double {
     Double(source.nextUniform())
   }
   
-  func randomInt() -> Int {
+  public func randomInt() -> Int {
     source.nextInt()
   }
   
-  func randomInt(max: Int) -> Int {
+  public func randomInt(max: Int) -> Int {
     source.nextInt(upperBound: max)
   }
   
-  func randomInt(min: Int, max: Int) -> Int {
+  public func randomInt(min: Int, max: Int) -> Int {
     min + randomInt(max: max - min)
   }
   
-  func randomBool() -> Bool {
+  public func randomBool() -> Bool {
     source.nextBool()
   }
   
-  func uniformGridPoint(minX: Int, maxX: Int, minY: Int, maxY: Int) -> (Int, Int) {
+  public func uniformGridPoint(minX: Int, maxX: Int, minY: Int, maxY: Int) -> (Int, Int) {
     return (
       randomInt(min: minX, max: maxX),
       randomInt(min: minY, max: maxY)
@@ -46,16 +46,16 @@ public class PseudoRandom {
   /**
    +/- 1
    */
-  func randomPolarity() -> Int {
+  public func randomPolarity() -> Int {
     random() > 0.5 ? 1 : -1
   }
   
   // TODO consider making below 2 safe in some way
-  func sample<T>(_ from: Array<T>) -> T {
+  public func sample<T>(_ from: Array<T>) -> T {
     from[randomInt(max: from.count - 1)]
   }
 
-  func samples<T>(n: Int, from: Array<T>) -> Array<T> {
+  public func samples<T>(n: Int, from: Array<T>) -> Array<T> {
     var res: [T] = []
     //    TODO this maybe not expected, consider how to make safe
     if n < 1 {
@@ -68,7 +68,7 @@ public class PseudoRandom {
     return res
   }
   
-  func shuffled<T>(items: Array<T>) -> Array<T> {
+  public func shuffled<T>(items: Array<T>) -> Array<T> {
     var array = items
     var currentIndex = items.count
     var temporaryValue: T
@@ -86,14 +86,14 @@ public class PseudoRandom {
     return items
   }
   
-  func gaussian(mean: Double = 0, sd: Double = 1) -> Double {
+  public func gaussian(mean: Double = 0, sd: Double = 1) -> Double {
     let a = random()
     let b = random()
     let n = sqrt(-2.0 * log(a)) * cos(2.0 * Double.pi * b)
     return mean + n * sd
   }
   
-  func poisson(lambda: Int) -> Int {
+  public func poisson(lambda: Int) -> Int {
     let limit = exp(-Double(lambda))
     var prod = random()
     var n = 0

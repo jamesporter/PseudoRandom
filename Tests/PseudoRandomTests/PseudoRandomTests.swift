@@ -1,5 +1,5 @@
 import XCTest
-@testable import PseudoRandom
+import PseudoRandom
 
 final class PseudoRandomTests: XCTestCase {
   func testIntegerGeneration() throws {
