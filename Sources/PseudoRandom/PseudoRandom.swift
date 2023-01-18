@@ -83,7 +83,7 @@ public class PseudoRandom {
       array[randomIndex] = temporaryValue
     }
     
-    return items
+    return array
   }
   
   public func gaussian(mean: Double = 0, sd: Double = 1) -> Double {
